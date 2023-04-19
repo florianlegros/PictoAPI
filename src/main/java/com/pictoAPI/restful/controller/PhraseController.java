@@ -11,22 +11,20 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@PreAuthorize("hasRole('MODERATOR')")
 @RequestMapping("/api/phrase")
 public class PhraseController {
 
     //une requete pour recuperer la liste de phrases d'un patient findByUserId -> List<phrase(id,contenu,question)>
-   
-   
+
     @Autowired
     private PhraseRepository repository;
-
-
 
     @GetMapping("/all")
     public List<Phrase> getAll() {
         return repository.findAll();
     }
+
+    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/add")
     public Phrase newPhrase(@RequestBody Phrase newPhrase) {
         return repository.save(newPhrase);
@@ -37,12 +35,21 @@ public class PhraseController {
         return repository.findById(id);
     }
 
+    @PutMapping("/{id}/question/{idQuestion}")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public Phrase setQuestion(@RequestBody Phrase newPhrase, @PathVariable Long id, @PathVariable Long idQuestion) {
+        newPhrase.setId(id);
+        newPhrase.setQuestionId(idQuestion);
+        return repository.save(newPhrase);
+    }
+
+    @PreAuthorize("hasRole('MODERATOR')")
     @PutMapping("/{id}")
     public Phrase replacePhrase(@RequestBody Phrase newPhrase, @PathVariable Long id) {
         newPhrase.setId(id);
         return repository.save(newPhrase);
     }
-
+    @PreAuthorize("hasRole('MODERATOR')")
     @DeleteMapping("/{id}")
     public void deletePhrase(@PathVariable Long id) {
         repository.deleteById(id);

@@ -2,14 +2,10 @@ package com.pictoAPI.restful.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Pictogramme {

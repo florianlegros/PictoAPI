@@ -18,8 +18,12 @@ public class Phrase {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date createdAt;
-    @ManyToOne()
+    @JoinColumn(name = "question_id", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = Question.class, fetch = FetchType.LAZY)
     private Question question;
+    @Column(name = "question_id")
+    private Long questionId;
+
     @ManyToMany()
     @JoinTable(name = "phrase_pictogramme",
             joinColumns = @JoinColumn(name = "phrase_id"),
@@ -55,6 +59,14 @@ public class Phrase {
 
     public Question getQuestion() {
         return question;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
     }
 
     public void setQuestion(Question question) {

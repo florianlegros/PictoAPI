@@ -2,6 +2,7 @@ package com.pictoAPI.restful.controller;
 
 import com.pictoAPI.restful.model.Pictogramme;
 import com.pictoAPI.restful.repository.PictogrammeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +11,11 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/pictogramme")
+@RequestMapping("/pictogrammes")
 public class PictogrammeController {
 
-    private final PictogrammeRepository repository;
-    public PictogrammeController(PictogrammeRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private PictogrammeRepository repository;
 
     @GetMapping("/all")
     public List<Pictogramme> getAll() {
@@ -29,11 +28,12 @@ public class PictogrammeController {
         return repository.save(newPicto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public Optional<Pictogramme> one(@PathVariable Long id) {
         return repository.findById(id);
     }
-    @PostMapping("/{id}/categorie/{idCategorie}")
+
+    @PutMapping("/get/{id}/categorie/{idCategorie}")
     @PreAuthorize("hasRole('MODERATOR')")
     public Pictogramme setCategorie(@RequestBody Pictogramme newPicto,@PathVariable Long id,@PathVariable Long idCategorie) {
         newPicto.setId(id);
@@ -41,14 +41,14 @@ public class PictogrammeController {
         return repository.save(newPicto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/change/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public Pictogramme replacePicto(@RequestBody Pictogramme newPicto, @PathVariable Long id) {
         newPicto.setId(id);
         return repository.save(newPicto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public void deletePicto(@PathVariable Long id) {
         repository.deleteById(id);

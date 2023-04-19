@@ -1,16 +1,16 @@
 package com.pictoAPI.restful.controller;
 
 import com.pictoAPI.restful.model.ERole;
+import com.pictoAPI.restful.model.Role;
 import com.pictoAPI.restful.model.User;
 import com.pictoAPI.restful.payload.request.LoginRequest;
 import com.pictoAPI.restful.payload.request.SignupRequest;
-import com.pictoAPI.restful.repository.UserRepository;
-import com.pictoAPI.restful.security.jwt.JwtUtils;
-import com.pictoAPI.restful.security.services.UserDetailsImpl;
-import com.pictoAPI.restful.model.Role;
 import com.pictoAPI.restful.payload.response.MessageResponse;
 import com.pictoAPI.restful.payload.response.UserInfoResponse;
 import com.pictoAPI.restful.repository.RoleRepository;
+import com.pictoAPI.restful.repository.UserRepository;
+import com.pictoAPI.restful.security.jwt.JwtUtils;
+import com.pictoAPI.restful.security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
