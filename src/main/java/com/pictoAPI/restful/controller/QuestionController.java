@@ -20,6 +20,7 @@ public class QuestionController {
     public List<Question> getAll() {
         return repository.findAll();
     }
+
     @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/add")
     public Question newQuestion(@RequestBody Question newQuestion) {

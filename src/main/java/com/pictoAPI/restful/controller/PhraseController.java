@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/phrase")
+@RequestMapping("/phrase")
 public class PhraseController {
 
     //une requete pour recuperer la liste de phrases d'un patient findByUserId -> List<phrase(id,contenu,question)>
@@ -27,6 +27,9 @@ public class PhraseController {
     @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/add")
     public Phrase newPhrase(@RequestBody Phrase newPhrase) {
+        System.out.println(newPhrase.toString());
+        System.out.println(newPhrase.getPictogrammes());
+        System.out.println(newPhrase.getQuestion());
         return repository.save(newPhrase);
     }
 
@@ -49,6 +52,7 @@ public class PhraseController {
         newPhrase.setId(id);
         return repository.save(newPhrase);
     }
+
     @PreAuthorize("hasRole('MODERATOR')")
     @DeleteMapping("/{id}")
     public void deletePhrase(@PathVariable Long id) {

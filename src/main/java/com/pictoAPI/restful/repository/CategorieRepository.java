@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @RepositoryRestResource(excerptProjection = ResponseCategorie.class)
 @Repository
 public interface CategorieRepository extends JpaRepository<Categorie, Long> {

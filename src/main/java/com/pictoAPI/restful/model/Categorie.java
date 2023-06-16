@@ -1,6 +1,8 @@
 package com.pictoAPI.restful.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Entity
 public class Categorie {
     @Id
@@ -21,7 +24,7 @@ public class Categorie {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date createdAt;
-    @OneToMany(mappedBy = "categorieId")
+    @OneToMany(mappedBy = "categorieId",cascade = CascadeType.ALL)
     private List<Pictogramme> pictogrammes = new ArrayList<>();
 
     public Categorie() {

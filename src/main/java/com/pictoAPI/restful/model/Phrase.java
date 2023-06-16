@@ -1,15 +1,20 @@
 package com.pictoAPI.restful.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Entity
-public class Phrase {
+public class Phrase implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,12 +24,12 @@ public class Phrase {
     @CreationTimestamp
     private Date createdAt;
     @JoinColumn(name = "question_id", insertable = false, updatable = false)
-    @ManyToOne(targetEntity = Question.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Question.class, fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Question question;
     @Column(name = "question_id")
     private Long questionId;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "phrase_pictogramme",
             joinColumns = @JoinColumn(name = "phrase_id"),
             inverseJoinColumns = @JoinColumn(name = "pictogramme_id"))
@@ -61,16 +66,16 @@ public class Phrase {
         return question;
     }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
     public Long getQuestionId() {
         return questionId;
     }
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
     }
 
     public Date getCreatedAt() {

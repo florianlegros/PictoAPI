@@ -1,6 +1,5 @@
 package com.pictoAPI.restful.repository;
 
-import com.pictoAPI.restful.model.Role;
 import com.pictoAPI.restful.model.User;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;

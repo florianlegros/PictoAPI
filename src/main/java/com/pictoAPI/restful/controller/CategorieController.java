@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/categorie")
+@RequestMapping("/categories")
 public class CategorieController {
     @Autowired
     private CategorieRepository repository;

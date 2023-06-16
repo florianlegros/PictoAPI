@@ -35,7 +35,7 @@ public class PictogrammeController {
 
     @PutMapping("/get/{id}/categorie/{idCategorie}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public Pictogramme setCategorie(@RequestBody Pictogramme newPicto,@PathVariable Long id,@PathVariable Long idCategorie) {
+    public Pictogramme setCategorie(@RequestBody Pictogramme newPicto, @PathVariable Long id, @PathVariable Long idCategorie) {
         newPicto.setId(id);
         newPicto.setCategorieId(idCategorie);
         return repository.save(newPicto);
